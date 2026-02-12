@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+/* ---------- BASE ---------- */
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:"Poppins",sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:#fff;
+overflow:hidden;
+}
+
+/* floating hearts background */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background-image:url("https://www.transparenttextures.com/patterns/heart-pattern.png");
+opacity:0.15;
+z-index:-1;
+}
+
+/* ---------- CARD ---------- */
+.card{
+width:420px;
+max-width:90%;
+background:white;
+padding:40px;
+border-radius:25px;
+box-shadow:0 20px 50px rgba(0,0,0,0.15);
+text-align:center;
+transition:.5s ease;
+}
+
+/* smooth page transition */
+.page{
+display:none;
+opacity:0;
+transform:translateY(20px) scale(.98);
+transition:.5s ease;
+}
+
+.page.active{
+display:block;
+opacity:1;
+transform:translateY(0) scale(1);
+}
+
+/* ---------- TEXT ---------- */
+h1,h2{margin-bottom:15px}
+p{margin-bottom:20px}
+
+/* typing animation */
+.typing{
+border-right:3px solid black;
+white-space:nowrap;
+overflow:hidden;
+width:0;
+animation:typing 3s steps(40,end) forwards, blink .8s infinite;
+}
+
+@keyframes typing{to{width:100%}}
+@keyframes blink{50%{border-color:transparent}}
+
+/* ---------- BUTTON ---------- */
+button{
+background:#111;
+color:white;
+border:none;
+padding:12px 25px;
+border-radius:30px;
+cursor:pointer;
+margin:5px;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+}
+
+/* ---------- GALLERY ---------- */
+.gallery{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px;
+}
+
+.gallery img{
+width:100%;
+border-radius:15px;
+}
+
+/* ---------- PASSWORD ---------- */
+input{
+padding:12px;
+border-radius:10px;
+border:1px solid #ddd;
+margin:10px 0;
+width:80%;
+}
+
+/* ---------- YES NO ---------- */
+.yesno{
+position:relative;
+height:120px;
+}
+
+#noBtn{
+position:absolute;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="card">
+
+<!-- PASSWORD PAGE -->
+<div class="page active">
+<h2>Enter Password 🔒</h2>
+<input id="pass" type="password" placeholder="Password">
+<br>
+<button onclick="checkPass()">Unlock</button>
+<p id="error" style="color:red"></p>
+</div>
+
+<!-- INTRO -->
+<div class="page">
+<h1 class="typing">Happy Valentine's Day ❤️</h1>
+<p>I have something important to ask you...</p>
+<button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- SPOTIFY PLAYLIST -->
+<div class="page">
+<h2>🎵 A Playlist For You</h2>
+
+<!-- replace playlist link -->
+<iframe style="border-radius:12px"
+src="https://open.spotify.com/embed/playlist/54YaLWm8sO4JvF9TzrTJoW"
+width="100%" height="152"
+frameBorder="0"
+allow="autoplay; clipboard-write; encrypted-media">
+</iframe>
+
+<p>Every song reminds me of you ❤️</p>
+<button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- MEMORIES -->
+<div class="page">
+<h2>Our Beautiful Memories</h2>
+
+<div class="gallery">
+<img src="images/pic1.jpg">
+<img src="images/pic2.jpg">
+<img src="images/pic3.jpg">
+<img src="images/pic4.jpg">
+</div>
+
+<br>
+<button onclick="nextPage()">Next →</button>
+</div>
+
+<!-- VALENTINE QUESTION -->
+<div class="page">
+<h2>Will you be my Valentine? 💘</h2>
+
+<div class="yesno">
+<button onclick="yesAnswer()">YES ❤️</button>
+<button id="noBtn" onmouseover="moveNo()">NO 😢</button>
+</div>
+</div>
+
+<!-- SUCCESS PAGE -->
+<div class="page">
+<h1>YAYYYY ❤️</h1>
+<p>I love you forever 🥹</p>
+<button onclick="location.reload()">Start Again</button>
+</div>
+
+</div>
+
+<script>
+
+/* page navigation */
+let current=0;
+const pages=document.querySelectorAll(".page");
+
+function nextPage(){
+pages[current].classList.remove("active");
+current++;
+pages[current].classList.add("active");
+}
+
+/* password */
+function checkPass(){
+if(document.getElementById("pass").value==="24072022"){
+nextPage();
+}else{
+document.getElementById("error").innerText="Wrong password!";
+}
+}
+
+/* yes answer */
+function yesAnswer(){
+nextPage();
+}
+
+/* no button runs away */
+function moveNo(){
+let btn=document.getElementById("noBtn");
+btn.style.top=Math.random()*80+"px";
+btn.style.left=Math.random()*200+"px";
+}
+
+</script>
+
+</body>
+</html>
